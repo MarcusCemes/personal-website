@@ -11,6 +11,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 COPY package.json /app/package.json
 COPY pnpm-lock.yaml /app/pnpm-lock.yaml
+COPY pnpm-workspace.yaml /app/pnpm-workspace.yaml
 
 
 FROM pnpm AS build
@@ -18,8 +19,6 @@ FROM pnpm AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY static /app/static
-COPY package.json /app/package.json
-COPY pnpm-lock.yaml /app/pnpm-lock.yaml
 COPY svelte.config.js /app/svelte.config.js
 COPY tsconfig.json /app/tsconfig.json
 COPY vite.config.ts /app/vite.config.ts
